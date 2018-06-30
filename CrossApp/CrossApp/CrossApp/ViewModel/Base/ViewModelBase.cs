@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CrossApp.Services;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,8 @@ namespace CrossApp.ViewModel.Base
 {
     public abstract class ViewModelBase : BindableObject
     {
+        protected readonly INavigationService NavigationService;
+
         string _title;
         public string Title
         {
@@ -22,6 +25,7 @@ namespace CrossApp.ViewModel.Base
         public ViewModelBase(string title)
         {
             Title = title;
+            NavigationService = ViewModelLocator.Instance.Resolve<INavigationService>();
         }
 
         public virtual Task InitializeAsync(object navigationData)

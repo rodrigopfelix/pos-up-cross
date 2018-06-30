@@ -1,3 +1,5 @@
+using CrossApp.Services;
+using CrossApp.ViewModel.Base;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,10 +13,23 @@ namespace CrossApp
 		{
 			InitializeComponent();
 
-			//MainPage = new MainPage();
+            BuildDependencies();
+
+            InitNavigation();
 		}
 
-		protected override void OnStart ()
+        private async void InitNavigation()
+        {
+            var navigationService = ViewModelLocator.Instance.Resolve<INavigationService>();
+            await navigationService.Initialize();
+        }
+
+        private void BuildDependencies()
+        {
+            ViewModelLocator.Instance.Build();
+        }
+
+        protected override void OnStart ()
 		{
 			// Handle when your app starts
 		}

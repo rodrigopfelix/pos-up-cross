@@ -98,7 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrossApp\CrossApp.csproj">
-      <Project>{D4D083CB-1794-4E2B-887A-E72ED802E5BE}</Project>
+      <Project>{0b369d4a-250c-463b-a34f-31ea05a2825f}</Project>
       <Name>CrossApp</Name>
     </ProjectReference>
   </ItemGroup>

@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using Autofac;
+using Autofac.Core;
 using CrossApp.Infra;
 using CrossApp.Infra.API;
 using CrossApp.Infra.HttpTools;
@@ -32,6 +33,7 @@ namespace CrossApp.ViewModel.Base
 
             _containerBuilder.RegisterType<DetailViewModel>();
             _containerBuilder.RegisterType<MainViewModel>();
+            _containerBuilder.RegisterType<string>();
 
             _containerBuilder.Register(api =>
             {
@@ -45,9 +47,15 @@ namespace CrossApp.ViewModel.Base
             }).As<ITmdbApi>().InstancePerDependency();
         }
 
-        public T Resolve<T>() => _container.Resolve<T>();
+        public T Resolve<T>()
+            => _container.Resolve<T>();
+        public T Resolve<T>(object parameter) 
+            => _container.Resolve<T>(new TypedParameter(parameter.GetType(), parameter));
 
-        public object Resolve(Type type) => _container.Resolve(type);
+        public object Resolve(Type type)
+            => _container.Resolve(type);
+        public object Resolve(Type type, object parameter)
+            => _container.Resolve(type, new TypedParameter(parameter.GetType(), parameter));
 
         public void Register<TInterface, TImplementation>()
             where TImplementation : TInterface

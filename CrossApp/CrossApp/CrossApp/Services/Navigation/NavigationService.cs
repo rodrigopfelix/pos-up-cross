@@ -94,7 +94,9 @@ namespace CrossApp.Services
                 throw new Exception($"O mapeamento para o tipo {viewModelType} não existe");
 
             Page page = Activator.CreateInstance(pageType) as Page;
-            ViewModelBase viewModel = ViewModelLocator.Instance.Resolve(viewModelType) as ViewModelBase;
+            ViewModelBase viewModel = parameter == null ?
+                ViewModelLocator.Instance.Resolve(viewModelType) as ViewModelBase :
+                ViewModelLocator.Instance.Resolve(viewModelType, parameter) as ViewModelBase;
 
             page.BindingContext = viewModel;
 
